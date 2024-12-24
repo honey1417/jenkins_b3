@@ -1,3 +1,4 @@
+//parallel 
 pipeline {
     agent any 
     stages {
@@ -23,10 +24,14 @@ pipeline {
                 stage('Prisma'){
                     steps {
                         echo "prisma scanning"
-                        sleep 10
+                    }
+                }   
+            }
+        stage('Dev Stage') {
+                    steps {
+                        echo "dev stage done"
                     }
                 }
-            }
-       }
+        }
     }
 }
