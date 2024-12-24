@@ -1,25 +1,23 @@
-//multibranch pipeline
-pipeline{
-    agent any 
+pipeline {
+    agent any
+    environment {
+        DEPLOY_TO = 'production'
+    }
     stages {
-        stage('First stage') {
+        stage('Deploy to Dev') {
             steps {
-                echo "first stage done"
+                echo "deploying to dev env"
             }
         }
-        stage('Second stage') {
-            steps {
-                echo "second stage done"
+        stage('ProdDeploy') {
+            when {
+                expression 
+                {
+                    BRANCH_NAME ==~ /(qrrelease|hotfix)/
+                }
             }
-        }
-        stage('Third stage') {
             steps {
-                echo "third stage done"
-            }
-        }
-        stage('Fourth stage') {
-            steps {
-                echo "fourth stage done"
+                echo "deploying to prod"
             }
         }
     }
