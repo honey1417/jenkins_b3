@@ -13,7 +13,7 @@ pipeline {
         stage('ProdDeploy') {
             when {
                 allOf {
-                    branch 'qrrelease'
+                    branch 'prod'
                     environment name: 'DEPLOY_TO', value: 'production'
                 }
             }
