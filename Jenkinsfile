@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+        //our own custom env variables
         DEPLOY_TO = 'production'
     }
     stages {
@@ -11,13 +12,13 @@ pipeline {
         }
         stage('ProdDeploy') {
             when {
-                expression 
-                {
-                    BRANCH_NAME ==~ /(qrrelease|hotfix)/
+                allOf {
+                    branch 'qrrelease'
+                    environment name: 'DEPLOY_TO', value: 'production'
                 }
             }
             steps {
-                echo "deploying to prod"
+                echo "deploying to production"
             }
         }
     }
