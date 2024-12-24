@@ -1,9 +1,8 @@
-//anyOf condition
 pipeline {
     agent any
     environment {
         //our own custom env variables
-        DEPLOY_TO = 'xyxz'
+        DEPLOY_TO = 'production'
     }
     stages {
         stage('Deploy to Dev') {
@@ -15,7 +14,7 @@ pipeline {
             when {
                 anyOf {
                     //10 conditions present , anyone should be satisfied
-                    branch 'prod'
+                    branch 'production'
                     environment name: 'DEPLOY_TO', value: 'production'
                 }
             }
