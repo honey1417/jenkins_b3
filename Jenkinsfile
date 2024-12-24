@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Test to Stage') {
             when {
-                branch 'release/*'
+                branch 'release*'
             }
             steps {
                 echo "deploying to staging"
