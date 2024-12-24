@@ -2,12 +2,14 @@
 pipeline {
     agent any 
     stages {
-        stage('Build Stage'){
+        stage('Build Stage')
+        {
             steps {
                 echo "build stage done"
             }
         }
-        stage('Parallel Scans') {
+        stage('Parallel Scans')
+        {
             parallel {
                 stage('Sonar'){
                     steps {
@@ -27,11 +29,12 @@ pipeline {
                     }
                 }   
             }
-        stage('Dev Stage') {
-                    steps {
+        }
+        stage('Dev Stage')
+        {
+                steps {
                         echo "dev stage done"
                     }
-                }
         }
     }
 }
