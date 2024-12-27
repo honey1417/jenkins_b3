@@ -1,40 +1,29 @@
-//parallel 
 pipeline {
     agent any 
     stages {
-        stage('Build Stage')
-        {
+        stage('Build') {
             steps {
-                echo "build stage done"
+                echo "building the app"
             }
         }
-        stage('Parallel Scans')
-        {
-            parallel {
-                stage('Sonar'){
-                    steps {
-                        echo "sonar scanning"
-                        sleep 10
-                    }
-                }
-                stage('Fortify'){
-                    steps {
-                        echo "fortify scanning"
-                        sleep 10
-                    }
-                }
-                stage('Prisma'){
-                    steps {
-                        echo "prisma scanning"
-                    }
-                }   
+        stage('Test') {
+            steps {
+                echo "testing the app"
             }
         }
-        stage('Dev Stage')
-        {
-                steps {
-                        echo "dev stage done"
-                    }
+        stage('Deploy to Dev') {
+            steps {
+                echo "deploying the app to dev env"
+            }
+        }
+        stage('Deploy to Prod') {
+            steps { 
+                timeout(time: 300, unit: 'SECONDS') {
+                    input message: 'wuld u like to promote to prod', ok: 'yes', submitter: 'maha'
+
+                }
+                echo "deploying the app to prod env"
+            }
         }
     }
 }
