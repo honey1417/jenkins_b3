@@ -6,24 +6,25 @@ pipeline {
                 echo "building the app"
             }
         }
-        stage('Test') {
-            steps {
-                echo "testing the app"
-            }
-        }
-        stage('Deploy to Dev') {
-            steps {
-                echo "deploying the app to dev env"
-            }
-        }
-        stage('Deploy to Prod') {
-            steps { 
-                timeout(time: 300, unit: 'SECONDS') {
-                    input message: 'wuld u like to promote to prod', ok: 'yes', submitter: 'maha'
-
-                }
-                echo "deploying the app to prod env"
-            }
-        }
+        
     }
+    post {
+            //it runs irrespective of failure or success -- means everytime regardless of the status
+            always {
+                //block
+                echo "post ----> always got triggered"
+            }
+            //it runs only when the current pipeline or stage has a success status
+            success {
+                //block
+                echo "post ---> success is triggered "
+            }
+            //it runs only when the current pipeline/ stage is having failure status
+            failure {
+                //block 
+                echo "post -----> failure is triggered"
+            }
+
+    }
+
 }
